@@ -156,9 +156,14 @@ for i_iter in range(config['training']['n_training_steps']):
                 eval_metrics = {
                     'pair_auc': np.mean(accumulated_pair_auc),
                     'triplet_acc': np.mean(accumulated_triplet_acc)}
+
+                last_metrics = eval_metrics
                 info_str += ', ' + ', '.join(
                     ['%s %.4f' % ('val/' + k, v) for k, v in eval_metrics.items()])
             model.train()
         print('iter %d, %s, time %.2fs' % (
             i_iter + 1, info_str, time.time() - t_start))
         t_start = time.time()
+
+print("Pair AUC: " + last_metrics["pair_auc"])
+print("Triplet Accuracy: " + last_metrics["pair_acc"])
