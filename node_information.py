@@ -29,7 +29,7 @@ def get_ones(graph):
     return list([1.0 for _ in graph.nodes()])
 
 def get_nodes_eigenvector(graph, k=1):
-    A = graph.adjacency_matrix_scipy(return_edge_ids=False).astype(float)
+    A = graph.to_scipy_sparse_matrix().astype(float)
     N = scipy.sparse.diags(dgl.backend.asnumpy(graph.in_degrees()).clip(1), dtype=float)
     L = N * scipy.sparse.eye(graph.number_of_nodes()) - A
 
