@@ -65,7 +65,7 @@ def get_default_config():
             # Increase this to train longer.
             n_training_steps=500,
             # Print training information every this many training steps.
-            print_after=1000,
+            print_after=10000,
             # Evaluate on validation set every `eval_after * print_after` steps.
             eval_after=10),
         evaluation=dict(
