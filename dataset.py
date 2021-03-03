@@ -218,7 +218,7 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
             from_idx.append(edges[:, 0] + n_total_nodes)
             to_idx.append(edges[:, 1] + n_total_nodes)
             graph_idx.append(np.ones(n_nodes, dtype=np.int32) * i)
-            node_features.append([[float(x)] for x in self.node_feature_generators[0](g)])
+            node_features.append(np.array([[float(x)] for x in self.node_feature_generators[0](g)], dtype=np.float32))
 
             n_total_nodes += n_nodes
             n_total_edges += n_edges
