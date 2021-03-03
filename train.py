@@ -1,3 +1,4 @@
+from node_information import NODE_INFORMATION
 from evaluation import compute_similarity, auc
 from loss import pairwise_loss, triplet_loss
 from utils import *
@@ -6,7 +7,7 @@ import numpy as np
 import torch.nn as nn
 import collections
 import time
-import os
+import sys, os
 
 # Set GPU
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
@@ -14,8 +15,16 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 use_cuda = torch.cuda.is_available()
 device = torch.device('cuda:0' if use_cuda else 'cpu')
 
-# Print configure
 config = get_default_config()
+
+# Read arguments (node features)
+for feature_name in sys.argv:
+    if feature_name in NODE_INFORMATION:
+        print("Using feature: " + feature_name)
+        config['encoder']['node_features'].append(NODE_INFORMATION[feature_name])
+config['encoder']['node_feature_dim'] = len(config['encoder']['node_features'])
+
+# Print configure
 for (k, v) in config.items():
     print("%s= %s" % (k, v))
 
