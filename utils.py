@@ -69,7 +69,7 @@ def build_model(config, node_feature_dim, edge_feature_dim):
     return model, optimizer
 
 
-def build_datasets(config):
+def build_datasets(config, node_feature_generators=None):
     """Build the training and evaluation datasets."""
     config = copy.deepcopy(config)
 
@@ -77,9 +77,10 @@ def build_datasets(config):
         dataset_params = config['data']['dataset_params']
         validation_dataset_size = dataset_params['validation_dataset_size']
         del dataset_params['validation_dataset_size']
-        training_set = GraphEditDistanceDataset(**dataset_params)
+        training_set = GraphEditDistanceDataset(**dataset_params, node_feature_generators=node_feature_generators)
         dataset_params['dataset_size'] = validation_dataset_size
-        validation_set = FixedGraphEditDistanceDataset(**dataset_params)
+        validation_set = FixedGraphEditDistanceDataset(**dataset_params,
+                                                       node_feature_generators=node_feature_generators)
     else:
         raise ValueError('Unknown problem type: %s' % config['data']['problem'])
     return training_set, validation_set

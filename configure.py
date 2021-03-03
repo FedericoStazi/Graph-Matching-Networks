@@ -28,7 +28,6 @@ def get_default_config():
     return dict(
         encoder=dict(
             node_hidden_sizes=[node_state_dim],
-            node_features=[],
             node_feature_dim=0,
             edge_hidden_sizes=None),
         aggregator=dict(

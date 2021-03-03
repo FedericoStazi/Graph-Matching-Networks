@@ -100,7 +100,7 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
             p_edge_range,
             n_changes_positive,
             n_changes_negative,
-            node_features_generators,
+            node_feature_generators=None,
             permute=True,
     ):
         """Constructor.
@@ -117,11 +117,13 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
         changing edges; if False, the node orderings across a pair or triplet of
         graphs will be the same, useful for visualization.
     """
+        if node_feature_generators is None:
+            node_feature_generators = []
         self._n_min, self._n_max = n_nodes_range
         self._p_min, self._p_max = p_edge_range
         self._k_pos = n_changes_positive
         self._k_neg = n_changes_negative
-        self.node_features_generators = node_features_generators
+        self.node_feature_generators = node_feature_generators
         self._permute = permute
 
     def _get_graph(self):
@@ -204,7 +206,7 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
         node_features = []
 
         # TODO Implement support for more features
-        assert len(self.node_features_generators) == 1
+        assert len(self.node_feature_generators) == 1
 
         n_total_nodes = 0
         n_total_edges = 0
@@ -216,7 +218,7 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
             from_idx.append(edges[:, 0] + n_total_nodes)
             to_idx.append(edges[:, 1] + n_total_nodes)
             graph_idx.append(np.ones(n_nodes, dtype=np.int32) * i)
-            node_features.append(self.node_features_generators[0](g))
+            node_features.append(self.node_feature_generators[0](g))
 
             n_total_nodes += n_nodes
             n_total_edges += n_edges
@@ -270,6 +272,7 @@ class FixedGraphEditDistanceDataset(GraphEditDistanceDataset):
             n_changes_positive,
             n_changes_negative,
             dataset_size,
+            node_feature_generators=None,
             permute=True,
             seed=1234,
     ):
@@ -278,6 +281,7 @@ class FixedGraphEditDistanceDataset(GraphEditDistanceDataset):
             p_edge_range,
             n_changes_positive,
             n_changes_negative,
+            node_feature_generators=node_feature_generators,
             permute=permute,
         )
         self._dataset_size = dataset_size

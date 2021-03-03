@@ -18,10 +18,11 @@ device = torch.device('cuda:0' if use_cuda else 'cpu')
 config = get_default_config()
 
 # Read arguments (node features)
+node_feature_generators = []
 for feature_name in sys.argv:
     if feature_name in NODE_INFORMATION:
         print("Using feature: " + feature_name)
-        config['encoder']['node_features'].append(NODE_INFORMATION[feature_name])
+        node_feature_generators.append(NODE_INFORMATION[feature_name])
 config['encoder']['node_feature_dim'] = len(config['encoder']['node_features'])
 
 # Print configure
@@ -37,7 +38,7 @@ torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.benchmark = True
 
 
-training_set, validation_set = build_datasets(config)
+training_set, validation_set = build_datasets(config, node_feature_generators=node_feature_generators)
 
 if config['training']['mode'] == 'pair':
     training_data_iter = training_set.pairs(config['training']['batch_size'])
