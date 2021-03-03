@@ -232,8 +232,8 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
             'n_graphs'])
 
         print("COMPARISON")
-        print("Ones: " + np.ones((n_total_nodes, 1), dtype=np.float32))
-        print("Custom: " + np.concatenate(node_features, axis=0))
+        print("Ones: " + str(np.ones((n_total_nodes, 1), dtype=np.float32)))
+        print("Custom: " + str(np.concatenate(node_features, axis=0)))
 
         return GraphData(
             from_idx=np.concatenate(from_idx, axis=0),
