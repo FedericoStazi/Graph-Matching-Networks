@@ -166,4 +166,4 @@ for i_iter in range(config['training']['n_training_steps']):
         t_start = time.time()
 
 print("Pair AUC: " + str(last_metrics["pair_auc"]))
-print("Triplet Accuracy: " + str(last_metrics["pair_acc"]))
+print("Triplet Accuracy: " + str(last_metrics["triplet_acc"]))
