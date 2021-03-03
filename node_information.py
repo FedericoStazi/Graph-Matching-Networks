@@ -8,7 +8,7 @@ def normalize(l):
     return (l - numpy.mean(l)) / (numpy.std(l) if numpy.std(l) > 1e-6 else 1)
 
 def get_nodes_degree(graph):
-    return list(graph.degree)
+    return [x for _,x in graph.degree]
 
 def get_nodes_closeness_centrality(graph):
     return list(networkx.closeness_centrality(graph).values())
