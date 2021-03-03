@@ -11,16 +11,16 @@ def get_nodes_degree(graph):
     return list(graph.in_degrees())
 
 def get_nodes_closeness_centrality(graph):
-    return list(networkx.closeness_centrality(graph.to_networkx().to_undirected()).values())
+    return list(networkx.closeness_centrality(graph).values())
 
 def get_nodes_betweenness_centrality(graph):
-    return list(networkx.betweenness_centrality(graph.to_networkx().to_undirected()).values())
+    return list(networkx.betweenness_centrality(graph).values())
 
 def get_nodes_pagerank(graph):
-    return list(networkx.algorithms.link_analysis.pagerank_alg.pagerank(graph.to_networkx().to_undirected()).values())
+    return list(networkx.algorithms.link_analysis.pagerank_alg.pagerank(graph).values())
 
 def get_nodes_triangles(graph):
-    return list(networkx.algorithms.cluster.triangles(graph.to_networkx().to_undirected()).values())
+    return list(networkx.algorithms.cluster.triangles(graph).values())
 
 def get_nodes_random(graph):
     return list([random.random() for _ in graph.nodes()])
