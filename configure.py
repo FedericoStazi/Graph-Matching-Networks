@@ -63,9 +63,9 @@ def get_default_config():
             # Add gradient clipping to avoid large gradients.
             clip_value=10.0,
             # Increase this to train longer.
-            n_training_steps=500,
+            n_training_steps=500000,
             # Print training information every this many training steps.
-            print_after=10,#000
+            print_after=10000,
             # Evaluate on validation set every `eval_after * print_after` steps.
             eval_after=10),
         evaluation=dict(
