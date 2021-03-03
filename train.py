@@ -40,6 +40,8 @@ torch.backends.cudnn.benchmark = True
 
 training_set, validation_set = build_datasets(config, node_feature_generators=node_feature_generators)
 
+print("Graphs generation completed!")
+
 if config['training']['mode'] == 'pair':
     training_data_iter = training_set.pairs(config['training']['batch_size'])
     first_batch_graphs, _ = next(training_data_iter)

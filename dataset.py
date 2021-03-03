@@ -223,8 +223,6 @@ class GraphEditDistanceDataset(GraphSimilarityDataset):
             n_total_nodes += n_nodes
             n_total_edges += n_edges
 
-        print(len(graphs))
-
         GraphData = collections.namedtuple('GraphData', [
             'from_idx',
             'to_idx',
