@@ -1,7 +1,6 @@
 import collections
 from dataset import GraphEditDistanceDataset, FixedGraphEditDistanceDataset
 from graphembeddingnetwork import GraphEmbeddingNet, GraphEncoder, GraphAggregator
-from graphmatchingnetwork import GraphMatchingNet
 import copy
 import torch
 import random
@@ -48,7 +47,7 @@ def build_model(config, node_feature_dim, edge_feature_dim):
     Returns:
       tensors: a (potentially nested) name => tensor dict.
       placeholders: a (potentially nested) name => tensor dict.
-      AE_model: a GraphEmbeddingNet or GraphMatchingNet instance.
+      AE_model: a GraphEmbeddingNet instance.
 
     Raises:
       ValueError: if the specified model or training settings are not supported.
@@ -61,9 +60,6 @@ def build_model(config, node_feature_dim, edge_feature_dim):
     if config['model_type'] == 'embedding':
         model = GraphEmbeddingNet(
             encoder, aggregator, **config['graph_embedding_net'])
-    elif config['model_type'] == 'matching':
-        model = GraphMatchingNet(
-            encoder, aggregator, **config['graph_matching_net'])
     else:
         raise ValueError('Unknown model type: %s' % config['model_type'])
 

@@ -1,7 +1,6 @@
 def get_default_config():
     """The default configs."""
-    model_type = 'matching'
-    # Set to `embedding` to use the graph embedding net.
+    model_type = 'embedding' # 'matching', 'embedding'
     node_state_dim = 32
     graph_rep_dim = 128
     graph_embedding_net_config = dict(
@@ -16,17 +15,16 @@ def get_default_config():
         # e.g. layer normalization to keep the scale of these under control.
         edge_net_init_scale=0.1,
         # other types of update like `mlp` and `residual` can also be used here. gru
-        node_update_type='gru',
+        node_update_type='gru', # 'gru', 'mlp', 'residual'
         # set to False if your graph already contains edges in both directions.
         use_reverse_direction=True,
         # set to True if your graph is directed
         reverse_dir_param_different=False,
         # we didn't use layer norm in our experiments but sometimes this can help.
         layer_norm=False,
-        # set to `embedding` to use the graph embedding net.
         prop_type=model_type)
     graph_matching_net_config = graph_embedding_net_config.copy()
-    graph_matching_net_config['similarity'] = 'dotproduct'  # other: euclidean, cosine
+    graph_matching_net_config['similarity'] = 'dotproduct'  # 'dotproduct', 'euclidean', 'cosine'
     return dict(
         encoder=dict(
             node_hidden_sizes=[node_state_dim],
@@ -54,7 +52,7 @@ def get_default_config():
             batch_size=20,
             learning_rate=1e-4,
             mode='pair',
-            loss='margin',  # other: hamming
+            loss='margin',  # 'margin', 'hamming'
             margin=1.0,
             # A small regularizer on the graph vector scales to avoid the graph
             # vectors blowing up.  If numerical issues is particularly bad in the
@@ -67,7 +65,7 @@ def get_default_config():
             # Increase this to train longer.
             n_training_steps=500000,
             # Print training information every this many training steps.
-            print_after=100,
+            print_after=1000,
             # Evaluate on validation set every `eval_after * print_after` steps.
             eval_after=10),
         evaluation=dict(
