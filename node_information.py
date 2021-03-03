@@ -25,6 +25,9 @@ def get_nodes_triangles(graph):
 def get_nodes_random(graph):
     return list([random.random() for _ in graph.nodes()])
 
+def get_ones(graph):
+    return list([1.0 for _ in graph.nodes()])
+
 def get_nodes_eigenvector(graph, k=1):
     A = graph.adjacency_matrix_scipy(return_edge_ids=False).astype(float)
     N = scipy.sparse.diags(dgl.backend.asnumpy(graph.in_degrees()).clip(1), dtype=float)
@@ -36,7 +39,7 @@ def get_nodes_eigenvector(graph, k=1):
 
 NODE_INFORMATION = {'degree' : get_nodes_degree, 'closeness_centrality' : get_nodes_closeness_centrality,
                     'betweenness_centrality' : get_nodes_betweenness_centrality, 'pagerank' : get_nodes_pagerank,
-                    'triangles' : get_nodes_triangles, 'random' : get_nodes_random,
+                    'triangles' : get_nodes_triangles, 'random' : get_nodes_random, 'ones' : get_ones,
                     'eig1' : (lambda g : get_nodes_eigenvector(g, 1)),
                     'eig2' : (lambda g : get_nodes_eigenvector(g, 2)),
                     'eig3' : (lambda g : get_nodes_eigenvector(g, 3)),

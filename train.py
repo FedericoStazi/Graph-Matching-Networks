@@ -40,16 +40,12 @@ torch.backends.cudnn.benchmark = True
 
 training_set, validation_set = build_datasets(config, node_feature_generators=node_feature_generators)
 
-print("A")
-
 if config['training']['mode'] == 'pair':
     training_data_iter = training_set.pairs(config['training']['batch_size'])
     first_batch_graphs, _ = next(training_data_iter)
 else:
     training_data_iter = training_set.triplets(config['training']['batch_size'])
     first_batch_graphs = next(training_data_iter)
-
-print("B")
 
 node_feature_dim = first_batch_graphs.node_features.shape[-1]
 edge_feature_dim = first_batch_graphs.edge_features.shape[-1]
@@ -59,8 +55,6 @@ model.to(device)
 
 accumulated_metrics = collections.defaultdict(list)
 
-print("C")
-
 training_n_graphs_in_batch = config['training']['batch_size']
 if config['training']['mode'] == 'pair':
     training_n_graphs_in_batch *= 2
@@ -68,8 +62,6 @@ elif config['training']['mode'] == 'triplet':
     training_n_graphs_in_batch *= 4
 else:
     raise ValueError('Unknown training mode: %s' % config['training']['mode'])
-
-print("D")
 
 t_start = time.time()
 for i_iter in range(config['training']['n_training_steps']):
