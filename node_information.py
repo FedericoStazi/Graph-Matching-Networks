@@ -30,7 +30,7 @@ def get_ones(graph):
 
 def get_nodes_eigenvector(graph, k=1):
     A = networkx.convert_matrix.to_scipy_sparse_matrix(graph).astype(float)
-    N = scipy.sparse.diags(dgl.backend.asnumpy(graph.in_degrees()).clip(1), dtype=float)
+    N = scipy.sparse.diags(dgl.backend.asnumpy(get_nodes_degree(graph)).clip(1), dtype=float)
     L = N * scipy.sparse.eye(graph.number_of_nodes()) - A
 
     EigVal, EigVec = scipy.sparse.linalg.eigs(L, k+1, which='SR', tol=5e-1)
