@@ -23,7 +23,7 @@ for feature_name in sys.argv:
     if feature_name in NODE_INFORMATION:
         print("Using feature: " + feature_name)
         node_feature_generators.append(NODE_INFORMATION[feature_name])
-config['encoder']['node_feature_dim'] = len(config['encoder']['node_features'])
+config['encoder']['node_feature_dim'] = len(node_feature_generators)
 
 # Print configure
 for (k, v) in config.items():
